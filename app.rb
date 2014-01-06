@@ -27,3 +27,8 @@ get '/console' do
   erb :console
 end
 
+post '/console'do
+  post = params[:post]
+  erb post['app_secret']
+end
+
