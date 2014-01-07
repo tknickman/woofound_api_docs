@@ -100,6 +100,7 @@ body {
 .request_1 {
     outline-style:solid;
     outline-color: #cdcdcd;
+    border-width:1px;
 
     padding-top:25px;
     padding-bottom:25px;

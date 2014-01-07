@@ -3,19 +3,19 @@ window.onload = function()
 {
     $(document).on('input','#username', function () {
         $('#username_curl').html(this.value);
-    })
+    });
 
     $(document).on('input','#password', function () {
         $('#password_curl').html(this.value);
-    })
+    });
 
     $(document).on('input','#app_secret', function () {
         $('#app_secret_curl').html(this.value);
-    })
+    });
 
     $(document).on('input','#id', function () {
         $('#endpoint_curl').html(this.value);
-    })
+    });
 
 
     $('#dropdown').change(function(){
@@ -31,18 +31,19 @@ window.onload = function()
 
 // clear form data button
     $(function() {
-        $('#reset').click(function() {
+        $('#reset').click(function(e) {
             $(':input','#form-horizontal')
                 .not(':button, :submit, :reset, :hidden')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
+                return false;
         });
     });
 
-    $("input[type=submit]").click(function(){
-        $("<li />").html("item").appendTo("test");
-    })
+
+
+
 
 
 
@@ -61,7 +62,9 @@ window.onload = function()
 
 
         newTextBoxDiv.after().load("html/request_inner.html",function() {
-            $(".content").fadeIn(800);
+            $("#nav nav-tabs").find("href").each(function() {
+                alert("test");
+            });
         });
 
         newTextBoxDiv.appendTo("#request_group");
@@ -71,7 +74,7 @@ window.onload = function()
     });
 
     $("#remove_request").click(function () {
-        if(counter==2){
+        if(counter===2){
             alert("No more to remove");
             return false;
         }
@@ -83,7 +86,7 @@ window.onload = function()
     });
 
 
-}
+};
 
 
 
