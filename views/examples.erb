@@ -2,32 +2,8 @@
 <div class="row">
   <div class="col-lg-12">
 
-
-    <!--Loop over the array-->
-    <% @endpoint_data.each do |route, route_data| %>
-
-        <!--Get the route name-->
-        <%route = route %>
-
-        <!--Get out the variables for the route-->
-        <% if @endpoint_data[route].has_key?(:variables) %>
-            <% variables = @endpoint_data[route][:variables] %>
-        <%end%>
-
-        <!--Get our the methods for the route-->
-        <% if @endpoint_data[route].has_key?(:methods) %>
-            <% methods = @endpoint_data[route][:methods] %>
-        <%end%>
-
-        <br/>
-        <%= variables %>
-        <br/>
-        <%= methods %>
-        <br/>
-        <br/>
-    <% end %>
-
-
+    <h1>Code</h1>
+    <pre>More substantial examples</pre>
     
   </div>
 </div><!-- /.row -->

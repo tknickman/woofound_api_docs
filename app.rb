@@ -30,7 +30,7 @@ end
 
 get '/v1' do
   @endpoint_data = v1_endpoints
-  erb :examples
+  erb :v1_new
 end
 
 get '/v2' do
