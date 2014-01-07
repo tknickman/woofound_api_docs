@@ -1,69 +1,99 @@
-<div class="col-lg-12">
+<div class="row">
+  <div class="col-lg-12">
+    <div id='request_group'>
+      <div class="request_1" id="request_1">
 
-  <pre>curl -X GET -H "Woofound-App-Secret:<span id="app_secret_curl" readonly="readonly"></span>"  --user "<span id="username_curl" readonly="readonly"></span>:<span id="password_curl" readonly="readonly"> </span>" https://core.woofound.com<span id="endpoint_curl" readonly="readonly"> </span></pre>
+        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+          <li class="active"><a href="#data" data-toggle="tab">Data</a></li>
+          <li><a href="#result" data-toggle="tab">Result</a></li>
+        </ul>
 
+        <!--TABS-->
+        <div id="main_tabs" class="tab-content">
 
-  <form class="form-horizontal">
-    <fieldset>
+          <!--TAB 1-->
+          <div class="tab-pane fade active in" id="data">
+            <div class="col-lg-12">
 
-      <!-- app-secret input-->
-      <div class="control-group">
-        <label class="control-label" for="textinput">App_Secret</label>
+              <pre>curl -X GET -H "Woofound-App-Secret:<span id="app_secret_curl" readonly="readonly"></span>"  --user "<span id="username_curl" readonly="readonly"></span>:<span id="password_curl" readonly="readonly"> </span>" https://core.woofound.com<span id="endpoint_curl" readonly="readonly"> </span></pre>
 
-        <div class="controls">
-          <input id="app_secret" name="textinput" size="70" type="text" placeholder="xxxxxxxxxxxxxx" class="input-xlarge">
+              <form class="form-horizontal">
+                <fieldset>
+                  <!-- app secret input-->
+                  <div class="control-group">
+                    <label class="control-label" for="textinput">App_Secret</label>
+
+                    <div class="controls">
+                      <input id="app_secret" name="textinput" size="70" type="text" placeholder="xxxxxxxxxxxxxx" class="input-xlarge">
+                    </div>
+                  </div>
+
+                  <!-- username input-->
+                  <div class="control-group">
+                    <label class="control-label" for="textinput">Username</label>
+
+                    <div class="controls">
+                      <input id="username" name="textinput" size="25" type="text" placeholder="jason@woofound.com" class="input-xlarge">
+                    </div>
+                  </div>
+
+                  <!-- password input-->
+                  <div class="control-group">
+                    <label class="control-label" for="textinput">Password</label>
+
+                    <div class="controls">
+                      <input id="password" name="textinput" size="25" type="text" placeholder="password" class="input-xlarge">
+                    </div>
+                  </div>
+
+                  <!-- endpoint select -->
+                  <div class="control-group">
+                    <label class="control-label" for="selectbasic">Endpoint</label>
+
+                    <div class="controls">
+                      <select id="dropdown" name="selectbasic" class="input-xlarge">
+                        <option value="none">select</option>
+                        <option value="id">/tags/{id}</option>
+                        <option value="id_date">/tags/{id}/{date}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div id="textBoxContainer">
+
+                  </div>
+                  </br>
+
+                  <!-- ok/clear -->
+                  <div class="control-group">
+                    <div class="controls">
+                      <button id="go" name="go" class="btn btn-success">Go</button>
+                      <button id="reset" name="reset" class="btn btn-danger">Clear</button>
+
+                    </div>
+                  </div>
+
+                </fieldset>
+              </form>
+
+            </div>
+          </div>
+
+          <!--TAB 2-->
+          <div class="tab-pane fade" id="result">
+            <div class="col-lg-12">
+              RESULT
+            </div>
+          </div>
+
         </div>
-      </div>
-
-      <!-- username input-->
-      <div class="control-group">
-        <label class="control-label" for="textinput">Username</label>
-
-        <div class="controls">
-          <input id="username" name="textinput" size="25" type="text" placeholder="jason@woofound.com" class="input-xlarge">
-        </div>
-      </div>
-
-      <!-- password input-->
-      <div class="control-group">
-        <label class="control-label" for="textinput">Password</label>
-
-        <div class="controls">
-          <input id="password" name="textinput" size="25" type="text" placeholder="password" class="input-xlarge">
-        </div>
-      </div>
-
-
-      <!-- route select -->
-      <div class="control-group">
-        <label class="control-label" for="selectbasic">Route</label>
-
-        <div class="controls">
-          <select id="dropdown" name="selectbasic" class="input-xlarge">
-            <option value="none">select</option>
-            <option value="id">/tags/{id}</option>
-            <option value="id_date">/tags/{id}/{date}</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="textBoxContainer">
 
       </div>
 
-      <!-- go / clear -->
-      <div class="control-group">
-        <div class="controls">
-          <br/>
-          <button id="button1id" name="button1id" class="btn btn-success">Go</button>
-          <button id="button2id" name="button2id" class="btn btn-danger">Clear</button>
-        </div>
-      </div>
+    </div>
+    <br/>
+    <input type='button' value='Add Request' id='add_request'>
+    <input type='button' value='Remove Request' id='remove_request'>
 
-    </fieldset>
-  </form>
-
-
+  </div>
 </div>
-
-

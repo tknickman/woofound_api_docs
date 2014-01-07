@@ -29,6 +29,58 @@ window.onload = function()
 
     });
 
+// clear form data button
+    $(function() {
+        $('#reset').click(function() {
+            $(':input','#form-horizontal')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
+        });
+    });
+
+    $("input[type=submit]").click(function(){
+        $("<li />").html("item").appendTo("test");
+    })
+
+
+
+
+    var counter = 2;
+
+    $("#add_request").click(function () {
+
+        if(counter>10){
+            alert("Only 10 allowed");
+            return false;
+        }
+
+        var newTextBoxDiv = $(document.createElement('div'))
+            .attr("id", 'request_' + counter);
+
+
+        newTextBoxDiv.after().load("html/request_inner.html",function() {
+            $(".content").fadeIn(800);
+        });
+
+        newTextBoxDiv.appendTo("#request_group");
+
+
+        counter++;
+    });
+
+    $("#remove_request").click(function () {
+        if(counter==2){
+            alert("No more to remove");
+            return false;
+        }
+
+        counter--;
+
+        $("#request_" + counter).remove();
+
+    });
 
 
 }
