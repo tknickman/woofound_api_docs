@@ -6,25 +6,30 @@ configure do
 end
 
 v1_endpoints = {
-    '/' => {:methods => ["Get"]},
-    '/users' => {:methods => ["Post"]},
-    '/users/me' => {:methods => ["Get", "Put"]},
-    '/sliders' => {:methods => ["Get"]},
-    '/sliders/{id}' => {:methods => ["Get"], :variables => ["id"]},
-    '/sliders/{id}/results' => {:methods => ["Get"], :variables => ["id"]},
-    '/sliders/{id}/entities' => {:methods => ["Get"], :variables => ["id"]},
-    '/sliders/{slider_id}/entities/{id}' => {:methods => ["Get"], :variables => ["sliders_id", "id"]},
-    '/sliders/{id}/reset' => {:methods => ["Delete"], :variables => ["id"]},
-    '/sliders/{sliders_id}/tags/{id}' => {:methods => ["Post"], :variables => ["sliders_id", "id"]},
-    '/tags/{id}' => {:methods => ["Get"], :variables => ["id"]}
-
+    '/' => {
+        '/' => {:methods => ["GET"]}},
+    '/users' => {
+        '/users' => {:methods => ["POST"]},
+        '/users/me' => {:methods => ["GET", "PUT"]}},
+    '/sliders' => {
+        '/sliders' => {:methods => ["GET"]},
+        '/sliders/{id}' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{id}/results' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{id}/entities' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["sliders_id", "id"]},
+        '/sliders/{id}/reset' => {:methods => ["DELETE"], :variables => ["id"]},
+        '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["sliders_id", "id"]}},
+    '/tags' => {
+        '/tags/{id}' => {:methods => ["GET"], :variables => ["id"]}}
 }
+
 
 get '/' do
   erb :guides
 end
 
 get '/examples' do
+  @name = 'new test'
   erb :examples
 end
 
@@ -41,8 +46,10 @@ get '/console' do
   erb :console
 end
 
-post '/console'do
+post '/examples'do
   post = params[:post]
-  erb post['app_secret']
+  @name = post['name']
+  puts @name
+  erb :examples
 end
 

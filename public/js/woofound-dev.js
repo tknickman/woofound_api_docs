@@ -86,6 +86,13 @@ window.onload = function()
     });
 
 
+    $('#main').submit(function(e) {
+        e.preventDefault();
+        $('div.output').text('Hello, I am ' + $('#nm').val() + ', and I am from ' + $('#pl').val());
+    });
+
+
+
 };
 
 
