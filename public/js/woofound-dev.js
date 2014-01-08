@@ -18,78 +18,38 @@ window.onload = function()
     });
 
 
-    $('#dropdown').change(function(){
+    $('#main_dropdown').change(function(){
         $('#textBoxContainer').empty();
+
+        $('#textBoxContainer').append('<label class="control-label" for="textinput">App_Secret</label><br/><input id="app_secret" name="textinput" size="70" type="text" placeholder="xxxxxxxxxxxx" class="input-xlarge"><br/>');
+        $('#textBoxContainer').append('<label class="control-label" for="textinput">Username</label><br/><input id="app_secret" name="textinput" size="20" type="text" placeholder="jason@woofound.com" class="input-xlarge"><br/>');
+        $('#textBoxContainer').append('<label class="control-label" for="textinput">Password</label><br/><input id="password" name="textinput" size="20" type="text" placeholder="password" class="input-xlarge"><br/>');
+
+//        TODO: add javascript support for multiple variables in routes - add spans to live update dynamically
         var data = $(this).find('option:selected').attr('value');
-        var cleaned_data = data.split("_");
-        var num_args = cleaned_data.length;
-        for (var i = 0; i < num_args; i++){
-            $('#textBoxContainer').append('<label class="control-label" for="textinput">' + cleaned_data[i] + '</label><br/><input id="' + cleaned_data[i] + '" name="textinput" size="25" type="text" placeholder="'+ cleaned_data[i] +'" class="input-xlarge"><br/>');
+        if (data !=  "None"){
+            var cleaned_data = data.split("_");
+            var num_args = cleaned_data.length;
+            for (var i = 0; i < num_args; i++){
+                $('#textBoxContainer').append('<label class="control-label" for="textinput">' + cleaned_data[i] + '</label><br/><input id="' + cleaned_data[i] + '" name="textinput" size="25" type="text" placeholder="'+ cleaned_data[i] +'" class="input-xlarge"><br/>');
+            }
         }
+        $('#textBoxContainer').append('<br/><pre>curl -X GET -H "Woofound-App-Secret: <span id="app_secret_curl" readonly="readonly"></span>"  --user "<span id="username_curl" readonly="readonly"></span>:<span id="password_curl" readonly="readonly"> </span>" https://core.woofound.com<span id="endpoint_curl" readonly="readonly"> </span></pre>');
 
     });
 
-// clear form data button
-    $(function() {
-        $('#reset').click(function(e) {
-            $(':input','#form-horizontal')
-                .not(':button, :submit, :reset, :hidden')
-                .val('')
-                .removeAttr('checked')
-                .removeAttr('selected');
-                return false;
+    var newTextBoxDiv = $(document.createElement('div'))
+        .attr("id", 'request_' + counter);
+
+
+    newTextBoxDiv.after().load("html/request_inner.html",function() {
+        $("#nav nav-tabs").find("href").each(function() {
+            alert("test");
         });
     });
 
+    newTextBoxDiv.appendTo("#request_group");
 
-
-
-
-
-
-
-    var counter = 2;
-
-    $("#add_request").click(function () {
-
-        if(counter>10){
-            alert("Only 10 allowed");
-            return false;
-        }
-
-        var newTextBoxDiv = $(document.createElement('div'))
-            .attr("id", 'request_' + counter);
-
-
-        newTextBoxDiv.after().load("html/request_inner.html",function() {
-            $("#nav nav-tabs").find("href").each(function() {
-                alert("test");
-            });
-        });
-
-        newTextBoxDiv.appendTo("#request_group");
-
-
-        counter++;
-    });
-
-    $("#remove_request").click(function () {
-        if(counter===2){
-            alert("No more to remove");
-            return false;
-        }
-
-        counter--;
-
-        $("#request_" + counter).remove();
-
-    });
-
-
-    $('#main').submit(function(e) {
-        e.preventDefault();
-        $('div.output').text('Hello, I am ' + $('#nm').val() + ', and I am from ' + $('#pl').val());
-    });
 
 
 

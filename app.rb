@@ -16,9 +16,9 @@ v1_endpoints = {
         '/sliders/{id}' => {:methods => ["GET"], :variables => ["id"]},
         '/sliders/{id}/results' => {:methods => ["GET"], :variables => ["id"]},
         '/sliders/{id}/entities' => {:methods => ["GET"], :variables => ["id"]},
-        '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["sliders_id", "id"]},
+        '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["sliders-id", "id"]},
         '/sliders/{id}/reset' => {:methods => ["DELETE"], :variables => ["id"]},
-        '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["sliders_id", "id"]}},
+        '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["sliders-id", "id"]}},
     '/tags' => {
         '/tags/{id}' => {:methods => ["GET"], :variables => ["id"]}}
 }
@@ -29,8 +29,16 @@ get '/' do
 end
 
 get '/examples' do
-  @name = 'new test'
   erb :examples
+end
+
+post '/examples' do
+  post = params[:post]
+  @name = post['name']
+
+  puts "HERE "
+
+  erb :guides
 end
 
 get '/v1' do
@@ -43,13 +51,16 @@ get '/v2' do
 end
 
 get '/console' do
+  @endpoint_data = v1_endpoints
   erb :console
 end
 
-post '/examples'do
+post '/console' do
   post = params[:post]
   @name = post['name']
-  puts @name
-  erb :examples
+
+  erb :console
 end
+
+
 
