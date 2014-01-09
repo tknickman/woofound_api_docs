@@ -86,10 +86,10 @@ def call_api(post_data)
     }
     final_url = v1_url + route
 
-    #Built the the authorization header in a new resource
 
     begin
-      resource = RestClient::Resource.new(final_url, post_data['user'], post_data['password'])
+      #Build the the authorization header in a new resource
+      resource = RestClient::Resource.new(final_url, post_data['username'], post_data['password'])
       response = resource.get(:content_type => :json, :accept => :json, 'Woofound-App-Secret' => post_data['app_secret'])
     rescue => error
       response = error.response
