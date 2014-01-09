@@ -1,63 +1,80 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Sinatra + Twitter Bootstrap</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Woofound Developer Resources">
+    <meta name="author" content="Thomas E. Knickman - Woofound Inc.">
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-		<div class="container">
+    <title>Woofound Developer Resources - Examples</title>
 
-			<!-- Static navbar -->
-			<div class="navbar navbar-default" role="navigation">
-			  <div class="navbar-header">
-			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			      <span class="sr-only">Toggle navigation</span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			    </button>
-			    <a class="navbar-brand" href="/">Sinatra + Twitter Bootstrap</a>
-			  </div>
-			  <div class="navbar-collapse collapse">
-			    <ul class="nav navbar-nav">
-			      <li><a href="/secure/place">Secret</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=username%> <b class="caret"></b></a>
-			        <ul class="dropdown-menu">
-			            <li><a href="/login/form">Login</a></li>
-			            <li class="divider"></li>
-			            <li><a href="/logout">Logout</a></li>
-			        </ul>
-			      </li>
-        
-			    </ul>
-			  </div><!--/.nav-collapse -->
-			</div>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
 
-			<div>
-			      <%if @error then %>
-			          <div class="alert alert-error"><%=@error%></div>
-			      <% end %>
-			      <%= yield %>
-			</div>
+    <!--JS -->
+    <script src="js/woofound-dev.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
 
-	</div>
+    <!-- Add custom CSS here -->
+    <link href="css/woofound-dev.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Mobile Menu -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/"><img src="images/logo.png" width="147" height="47"></a>
+        </div>
+        <!-- Shared Menu -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <!-- Guides Link -->
+            <li><a href="/"><i class="fa fa-book"></i> Guides</a></li>
+            <!-- Examples -->
+            <li><a href="examples"><i class="fa fa-pencil"></i> Examples</a></li>
+            <!-- API Methods Link -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-code"></i> API Methods<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <!-- Version 1 -->
+                <li><a href="v1"><i class="fa fa-code"></i> Version 1</a></li>
+                <!-- Version 2 -->
+                <li><a href="v2"><i class="fa fa-code"></i> Version 2</a></li>
+              </ul>
+            </li>
+            <!-- Console -->
+            <li><a href="/console"><i class="fa fa-desktop"></i> Console</a></li>
+            
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown user-dropdown">
+              <a href="#" class="link" data-toggle="dropdown">Woofound Developer Resources</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/vendor/jquery-1.9.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+      <div id="page-wrapper">
+          <%= yield %>
+      </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+
+
+
   </body>
 </html>

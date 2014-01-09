@@ -1,0 +1,95 @@
+<div class="col-lg-12">
+
+
+  <form id="console_form" class="form-horizontal" action="/console" method="post">
+    <fieldset>
+      <!-- Select Basic -->
+      <div class="control-group">
+        <label class="control-label" for="selectbasic">Choose Route</label>
+
+        <div class="controls">
+          <select id="main_dropdown" name="selectbasic" class="input-xlarge">
+            <option>-------------</option>
+            <% option_num = 0 %>
+            <!--Loop over the routes hash-->
+            <% count = 0 %>
+            <% @endpoint_data.each do |route_group, specific_route| %>
+
+                <!--Get the route group name-->
+                <% route_group_name = route_group %>
+
+                <% specific_route.each do |specific_route, specific_route_details| %>
+
+                    <% specific_route_name = specific_route %>
+
+                    <!--Get out the variables for the route-->
+                    <% if specific_route_details.has_key?(:variables) %>
+                        <% variables = specific_route_details[:variables] %>
+                    <% end %>
+
+                    <!--Get our the methods for the route-->
+                    <% if specific_route_details.has_key?(:methods) %>
+                        <% methods = specific_route_details[:methods] %>
+                    <% end %>
+
+
+                    <% methods.each do |method| %>
+                        <% if variables then %>
+                            <% if method == "GET" then %>
+                                <option id="<%= specific_route_name %>" value="<%= variables.join('&') %>"><%= method.strip %>
+                                  :
+                                  https://www.core.woofound.com<%= specific_route_name %></option>
+                            <% end %>
+                        <% end %>
+
+                        <% if not variables then %>
+                            <% if method == "GET" then %>
+                                <option id="<%= specific_route_name %>" value="None"><%= method.strip %>:
+                                  https://www.core.woofound.com<%= specific_route_name %></option>
+                                <% count += 1 %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+
+                <% end %>
+
+
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div id="textBoxContainer">
+
+      </div>
+      <br/>
+      <!-- Submit Button -->
+      <div class="controls">
+        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <br/>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <% if @result then %>
+          <h2 id="nav-tabs"><titlecode>Response Code</titlecode></h2>
+          <pre><%= @code %></pre>
+
+          <h2 id="nav-tabs"><titlecode>Response Headers</titlecode></h2>
+          <pre><%= @headers %></pre>
+
+          <h2 id="nav-tabs"><titlecode>Response Body</titlecode></h2>
+          <pre><%= @body %></pre>
+      <% end %>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+

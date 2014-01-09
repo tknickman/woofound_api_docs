@@ -1,44 +1,102 @@
 require 'rubygems'
 require 'sinatra'
+require 'rest_client'
+require 'json'
+
 
 configure do
   enable :sessions
 end
 
-helpers do
-  def username
-    session[:identity] ? session[:identity] : 'Hello stranger'
-  end
-end
 
-before '/secure/*' do
-  if !session[:identity] then
-    session[:previous_url] = request.path
-    @error = 'Sorry guacamole, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
-  end
-end
+v1_endpoints = {
+    '/' => {
+        '/' => {:methods => ["GET"]}},
+    '/users' => {
+        '/users' => {:methods => ["POST"]},
+        '/users/me' => {:methods => ["GET", "PUT"]}},
+    '/sliders' => {
+        '/sliders' => {:methods => ["GET"]},
+        '/sliders/{id}' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{id}/results' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{id}/entities' => {:methods => ["GET"], :variables => ["id"]},
+        '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["slider_id", "id"]},
+        '/sliders/{id}/reset' => {:methods => ["DELETE"], :variables => ["id"]},
+        '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["slider_id", "id"]}},
+    '/tags' => {
+        '/tags/{id}' => {:methods => ["GET"], :variables => ["id"]}}
+}
+
 
 get '/' do
-  erb 'Can you handle a <a href="/secure/place">secret</a>?'
+  erb :guides
 end
 
-get '/login/form' do 
-  erb :login_form
+get '/examples' do
+  erb :examples
 end
 
-post '/login/attempt' do
-  session[:identity] = params['username']
-  where_user_came_from = session[:previous_url] || '/'
-  redirect to where_user_came_from 
+post '/examples' do
+  post = params[:post]
+  @name = post['name']
+
+  puts "HERE "
+
+  erb :guides
 end
 
-get '/logout' do
-  session.delete(:identity)
-  erb "<div class='alert alert-message'>Logged out</div>"
+get '/v1' do
+  @endpoint_data = v1_endpoints
+  erb :v1_new
+end
+
+get '/v2' do
+  erb :v2
+end
+
+get '/console' do
+  @endpoint_data = v1_endpoints
+  erb :console
+end
+
+post '/console' do
+
+  @endpoint_data = v1_endpoints
+  response = call_api(params[:post])
+
+
+  @result = TRUE
+  @code = response.code
+  @headers = JSON.pretty_generate(JSON.parse(response.headers.to_json))
+  @body = JSON.pretty_generate(JSON.parse(response.body))
+
+  erb :console
 end
 
 
-get '/secure/place' do
-  erb "This is a secret place that only <%=session[:identity]%> has access to!"
+def call_api(post_data)
+
+  unless post_data == nil
+    v1_url = "https://core.woofound.com"
+    route = post_data['route']
+    args_regex = /{\w+}/
+    result = post_data['route'].scan(args_regex)
+    result.each { |variable|
+      route = route.sub(variable, post_data[variable])
+    }
+    final_url = v1_url + route
+
+    #Built the the authorization header in a new resource
+
+    begin
+      resource = RestClient::Resource.new(final_url, post_data['user'], post_data['password'])
+      response = resource.get(:content_type => :json, :accept => :json, 'Woofound-App-Secret' => post_data['app_secret'])
+    rescue => error
+      response = error.response
+    end
+  end
+
 end
+
+
+
