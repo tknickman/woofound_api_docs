@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+<<<<<<< HEAD
     json (1.8.1)
     mime-types (2.0)
     rack (1.5.2)
@@ -8,6 +9,11 @@ GEM
       rack
     rest-client (1.6.7)
       mime-types (>= 1.16)
+=======
+    rack (1.5.2)
+    rack-protection (1.5.1)
+      rack
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -18,6 +24,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+<<<<<<< HEAD
   json
   rest-client
+=======
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
   sinatra

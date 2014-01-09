@@ -1,7 +1,11 @@
 <div class="col-lg-12">
 
 
+<<<<<<< HEAD
   <form id="console_form" class="form-horizontal" action="/console" method="post">
+=======
+  <form class="form-horizontal">
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
     <fieldset>
       <!-- Select Basic -->
       <div class="control-group">
@@ -9,7 +13,10 @@
 
         <div class="controls">
           <select id="main_dropdown" name="selectbasic" class="input-xlarge">
+<<<<<<< HEAD
             <option>-------------</option>
+=======
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
             <% option_num = 0 %>
             <!--Loop over the routes hash-->
             <% count = 0 %>
@@ -35,6 +42,7 @@
 
                     <% methods.each do |method| %>
                         <% if variables then %>
+<<<<<<< HEAD
                             <% if method == "GET" then %>
                                 <option id="<%= specific_route_name %>" value="<%= variables.join('&') %>"><%= method.strip %>
                                   :
@@ -48,6 +56,16 @@
                                   https://www.core.woofound.com<%= specific_route_name %></option>
                                 <% count += 1 %>
                             <% end %>
+=======
+                            <option value="<%= variables.join('_') %>"><%= method.strip %>:
+                              https://www.core.woofound.come<%= specific_route_name %></option>
+                        <% end %>
+
+                        <% if not variables then %>
+                            <option value="None"><%= method.strip %>:
+                              https://www.core.woofound.come<%= specific_route_name %></option>
+                            <% count += 1 %>
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
                         <% end %>
                     <% end %>
 
@@ -62,6 +80,7 @@
       <div id="textBoxContainer">
 
       </div>
+<<<<<<< HEAD
       <br/>
       <!-- Submit Button -->
       <div class="controls">
@@ -88,6 +107,20 @@
   </div>
 
 
+=======
+
+      <!-- Button -->
+      <div class="control-group">
+        <label class="control-label" for="singlebutton">Single Button</label>
+
+        <div class="controls">
+          <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
 </div>
 
 

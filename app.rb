@@ -1,14 +1,20 @@
 require 'rubygems'
 require 'sinatra'
+<<<<<<< HEAD
 require 'rest_client'
 require 'json'
 
+=======
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
 
 configure do
   enable :sessions
 end
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
 v1_endpoints = {
     '/' => {
         '/' => {:methods => ["GET"]}},
@@ -20,9 +26,15 @@ v1_endpoints = {
         '/sliders/{id}' => {:methods => ["GET"], :variables => ["id"]},
         '/sliders/{id}/results' => {:methods => ["GET"], :variables => ["id"]},
         '/sliders/{id}/entities' => {:methods => ["GET"], :variables => ["id"]},
+<<<<<<< HEAD
         '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["slider_id", "id"]},
         '/sliders/{id}/reset' => {:methods => ["DELETE"], :variables => ["id"]},
         '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["slider_id", "id"]}},
+=======
+        '/sliders/{slider_id}/entities/{id}' => {:methods => ["GET"], :variables => ["sliders-id", "id"]},
+        '/sliders/{id}/reset' => {:methods => ["DELETE"], :variables => ["id"]},
+        '/sliders/{sliders_id}/tags/{id}' => {:methods => ["POST"], :variables => ["sliders-id", "id"]}},
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
     '/tags' => {
         '/tags/{id}' => {:methods => ["GET"], :variables => ["id"]}}
 }
@@ -60,6 +72,7 @@ get '/console' do
 end
 
 post '/console' do
+<<<<<<< HEAD
 
   @endpoint_data = v1_endpoints
   response = call_api(params[:post])
@@ -69,11 +82,16 @@ post '/console' do
   @code = response.code
   @headers = JSON.pretty_generate(JSON.parse(response.headers.to_json))
   @body = JSON.pretty_generate(JSON.parse(response.body))
+=======
+  post = params[:post]
+  @name = post['name']
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
 
   erb :console
 end
 
 
+<<<<<<< HEAD
 def call_api(post_data)
 
   unless post_data == nil
@@ -99,4 +117,6 @@ def call_api(post_data)
 end
 
 
+=======
+>>>>>>> 8ae1fcf297be4f18c27817dd1208f0082f04220c
 
