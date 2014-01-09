@@ -1,6 +1,4 @@
 <div class="col-lg-12">
-
-
   <form id="console_form" class="form-horizontal" action="/console" method="post">
     <fieldset>
       <!-- Select Basic -->
@@ -9,7 +7,7 @@
 
         <div class="controls">
           <select id="main_dropdown" name="selectbasic" class="input-xlarge">
-            <option value="blank"> ------------- </option>
+            <option value="blank"> -------------</option>
             <% option_num = 0 %>
             <!--Loop over the routes hash-->
             <% count = 0 %>
@@ -75,17 +73,42 @@
   <div class="row">
     <div class="col-lg-12">
       <% if @result then %>
-          <h2 id="nav-tabs"><titlecode>Response Code</titlecode></h2>
+          <h2 id="nav-tabs">
+            <titlecode>Response Code</titlecode>
+          </h2>
           <pre><%= @code %></pre>
 
-          <h2 id="nav-tabs"><titlecode>Response Headers</titlecode></h2>
+          <h2 id="nav-tabs">
+            <titlecode>Response Headers</titlecode>
+          </h2>
           <pre><%= @headers %></pre>
 
-          <h2 id="nav-tabs"><titlecode>Response Body</titlecode></h2>
+          <h2 id="nav-tabs">
+            <titlecode>Response Body</titlecode>
+          </h2>
           <pre><%= @body %></pre>
       <% end %>
     </div>
   </div>
+
+
+  <!--get data to autofill the form on generation-->
+  <% if @autofill %>
+      <div id="autofill" class="row">
+
+      <% if @autofill.has_key?('app_secret') %>
+          <%= '<input value="' + @autofill['app_secret'] + '" type = "text" id="app_secret_previous">'%>
+      <% end %>
+
+      <% if @autofill.has_key?('username') %>
+          <%= '<input value="' + @autofill['username'] + '" type = "text" id="username_previous">'%>
+      <% end %>
+
+      <% if @autofill.has_key?('password') %>
+          <%= '<input value="' + @autofill['password'] + '" type = "text" id="password_previous">'%>
+      <% end %>
+      </div>
+  <% end %>
 
 
 </div>

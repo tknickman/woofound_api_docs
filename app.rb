@@ -9,6 +9,8 @@ configure do
 end
 
 
+#data structure to generate all documentation and interactive console
+#structure = {'route group' => {'specific route' => {:methods => ["GET", "POST", etc...], :variables => ["route_variable_1, route_variable_2, etc..."]}}}
 v1_endpoints = {
     '/' => {
         '/' => {:methods => ["GET"]}},
@@ -39,13 +41,18 @@ end
 get '/v1' do
   #send in the endpoints data structure so the content can be generated
   @endpoint_data = v1_endpoints
+  @version_num = '1'
   #call the view
-  erb :v1
+  erb :api_doc_template
 end
 
 get '/v2' do
+  #TODO: wrong data structure, need to make the one for v2 as well
+  #send in the endpoints data structure so the content can be generated
+  @endpoint_data = v1_endpoints
+  @version_num = '2'
   #call the view
-  erb :v2
+  erb :api_doc_template
 end
 
 get '/console' do
@@ -67,7 +74,8 @@ post '/console' do
   @code = response.code
   @headers = JSON.pretty_generate(JSON.parse(response.headers.to_json))
   @body = JSON.pretty_generate(JSON.parse(response.body))
-
+  #send the response object back to the view so we can autofill the fields
+  @autofill = params[:post]
   #call the view
   erb :console
 end

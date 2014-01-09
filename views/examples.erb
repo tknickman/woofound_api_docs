@@ -1,11 +1,66 @@
-<div id="output1">
-</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h1>Example API call with Ruby rest-client</h1>
+    <pre>
+require 'rest_client'
+require 'json'
 
-<% if @name then %>
-    <%= @name %>
-<% end %>
 
-<form id="myForm" action="/examples" method="post">
-  Name: <input type="text" name="post[name]" />
-  <input type="submit" value="Submit Name" />
-</form>
+post_data = {
+    'route' => '/users/me',
+    'user' => 'username',
+    'password' => 'password',
+    'app_secret' => 'app_secret',
+
+
+}
+
+
+def call_api(post_data)
+
+  unless post_data == nil
+    v1_url = "https://core.woofound.com"
+    route = post_data['route']
+    args_regex = /{\w+}/
+    result = post_data['route'].scan(args_regex)
+    result.each { |variable|
+      route = route.sub(variable, post_data[variable])
+    }
+    final_url = v1_url + route
+
+    #Built the the authorization header in a new resource
+
+    begin
+    	resource = RestClient::Resource.new(final_url, post_data['user'], post_data['password'])
+    	response = resource.get(:content_type => :json, :accept => :json, 'Woofound-App-Secret' => post_data['app_secret'])
+    rescue => error
+    	response = error.response
+    end
+  end
+
+end
+
+
+def start(post_data)
+  response = call_api(post_data)
+  puts response.code
+  puts
+  puts JSON.pretty_generate(JSON.parse(response.headers.to_json))
+  puts
+  puts JSON.pretty_generate(JSON.parse(response.body))
+
+end
+
+
+
+start(post_data)
+
+
+
+
+
+
+
+    </pre>
+  </div>
+</div><!-- /.row -->

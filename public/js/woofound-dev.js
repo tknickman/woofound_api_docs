@@ -28,6 +28,17 @@ window.onload = function()
     $('#main_dropdown').change(function(){
         $('#textBoxContainer').empty();
 
+        //check for form values that have already been submitted
+        if ($('#autofill').length){
+            var app_secret = document.getElementById("app_secret_previous").value;
+            var username = document.getElementById("username_previous").value;
+            var password = document.getElementById("password_previous").value;
+        }
+        else{
+            var app_secret = '';
+            var username = '';
+            var password = '';
+        }
 
         //get the value and id of the selected element from the dropdown list
         var data = $(this).find('option:selected').attr('value');
@@ -36,9 +47,9 @@ window.onload = function()
         //don't output the default boxes unless an option has actually been selected
         if (data !=  "blank"){
             //add the universal form boxes (app secret, username, and password)
-            $('#textBoxContainer').append('<label class="control-label" for="textinput">App_Secret</label><br/><input id="app_secret" name="post[app_secret]" size="70" type="text" placeholder="xxxxxxxxxxxx" class="input-xlarge"><br/>');
-            $('#textBoxContainer').append('<label class="control-label" for="textinput">Username</label><br/><input id="username" name="post[username]" size="20" type="text" placeholder="jason@woofound.com" class="input-xlarge"><br/>');
-            $('#textBoxContainer').append('<label class="control-label" for="textinput">Password</label><br/><input id="password" name="post[password]" size="20" type="text" placeholder="password" class="input-xlarge"><br/>');
+            $('#textBoxContainer').append('<label class="control-label" for="textinput">App_Secret</label><br/><input id="app_secret" name="post[app_secret]" size="70" type="text" placeholder="xxxxxxxxxxxx" value="' + app_secret + '" class="input-xlarge"><br/>');
+            $('#textBoxContainer').append('<label class="control-label" for="textinput">Username</label><br/><input id="username" name="post[username]" size="20" type="text" placeholder="jason@woofound.com" value="' + username + '" class="input-xlarge"><br/>');
+            $('#textBoxContainer').append('<label class="control-label" for="textinput">Password</label><br/><input id="password" name="post[password]" size="20" type="text" placeholder="password" value="' + password + '" class="input-xlarge"><br/>');
         }
 
 
@@ -70,6 +81,7 @@ window.onload = function()
     $( "#singlebutton" ).bind( "click", function() {
         $( "#console_form" ).submit();
     });
+
 
 
 
