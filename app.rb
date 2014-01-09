@@ -40,7 +40,7 @@ get '/v1' do
   #send in the endpoints data structure so the content can be generated
   @endpoint_data = v1_endpoints
   #call the view
-  erb :v1_new
+  erb :v1
 end
 
 get '/v2' do
