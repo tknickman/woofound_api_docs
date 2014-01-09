@@ -1,6 +1,7 @@
 
 window.onload = function()
 {
+    //LIVE CURL UPDATE FUNCTIONS
     $(document).on('input','#username', function () {
         $('#username_curl').html(this.value);
     });
@@ -23,6 +24,7 @@ window.onload = function()
 
 
 
+    //DYNAMICALLY UPDATING TEXT BOXES
     $('#main_dropdown').change(function(){
         $('#textBoxContainer').empty();
 
@@ -31,9 +33,11 @@ window.onload = function()
         $('#textBoxContainer').append('<label class="control-label" for="textinput">Username</label><br/><input id="username" name="post[username]" size="20" type="text" placeholder="jason@woofound.com" class="input-xlarge"><br/>');
         $('#textBoxContainer').append('<label class="control-label" for="textinput">Password</label><br/><input id="password" name="post[password]" size="20" type="text" placeholder="password" class="input-xlarge"><br/>');
 
+        //get the value and id of the selected element from the dropdown list
         var data = $(this).find('option:selected').attr('value');
         var route = $(this).find('option:selected').attr('id');
 
+        //add in a hidden field so we can have access to the chosen route on the backend
         $('#textBoxContainer').append('<input type="hidden" name="post[route]" value="' + route + '">');
 
         if (data !=  "None"){

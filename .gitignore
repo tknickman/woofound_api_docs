@@ -6,3 +6,4 @@
 /doc/api
 /Gemfile.lock
 .idea/
+.bundle/
