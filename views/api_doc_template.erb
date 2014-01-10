@@ -135,7 +135,8 @@
 
                             <% if method.strip == "DELETE" %>
                                 <h4><span class="label label-danger"><%= method.strip %></span>
-                                  https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
                             <% end %>
                         <% end %>
 
@@ -162,7 +163,42 @@
 
                     <% methods.each do |method| %>
                         <% if method.class == Hash %>
-                            <% details = method[:data] %>
+                            <% method.each do |method_type, method_type_data| %>
+                                <% method_with_data = method_type %>
+                                <% data = method_type_data[:data] %>
+
+                                <% if method_with_data.strip == "GET" %>
+                                    <h4><span class="label label-success"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                    <pre>curl -X <%= method_with_data.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" -d <%= data.to_json %> https://core.woofound.com<%= specific_route_name %></pre>
+                                <% end %>
+
+                                <% if method_with_data.strip == "POST" %>
+                                    <h4><span class="label label-primary"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                    <pre>curl -X <%= method_with_data.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" -d <%= data.to_json %> https://core.woofound.com<%= specific_route_name %></pre>
+                                <% end %>
+
+                                <% if method_with_data.strip == "PUT" %>
+                                    <h4><span class="label label-warning"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                    <pre>curl -X <%= method_with_data.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" -d <%= data.to_json %> https://core.woofound.com<%= specific_route_name %></pre>
+                                <% end %>
+
+                                <% if method_with_data.strip == "DELETE" %>
+                                    <h4><span class="label label-danger"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                    <pre>curl -X <%= method_with_data.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" -d <%= data.to_json %> https://core.woofound.com<%= specific_route_name %></pre>
+
+                                <% end %>
+
+
+
+                            <% end %>
                         <% else %>
                             <% if method.strip == "GET" %>
                                 <h4><span class="label label-success"><%= method.strip %></span>
