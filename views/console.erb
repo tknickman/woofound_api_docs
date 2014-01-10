@@ -48,10 +48,7 @@
                             <% end %>
                         <% end %>
                     <% end %>
-
                 <% end %>
-
-
             <% end %>
           </select>
         </div>
@@ -97,15 +94,15 @@
       <div id="autofill" class="row">
 
       <% if @autofill.has_key?('app_secret') %>
-          <%= '<input value="' + @autofill['app_secret'] + '" type = "text" id="app_secret_previous">'%>
+          <%= '<input value="' + @autofill['app_secret'] + '" type = "hidden" id="app_secret_previous">'%>
       <% end %>
 
       <% if @autofill.has_key?('username') %>
-          <%= '<input value="' + @autofill['username'] + '" type = "text" id="username_previous">'%>
+          <%= '<input value="' + @autofill['username'] + '" type = "hidden" id="username_previous">'%>
       <% end %>
 
       <% if @autofill.has_key?('password') %>
-          <%= '<input value="' + @autofill['password'] + '" type = "text" id="password_previous">'%>
+          <%= '<input value="' + @autofill['password'] + '" type = "hidden" id="password_previous">'%>
       <% end %>
       </div>
   <% end %>
