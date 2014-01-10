@@ -10,7 +10,7 @@ end
 
 
 #data structure to generate all documentation and interactive console
-#structure = {'route group' => {'specific route' => {:methods => ["GET", "POST", etc...], :variables => ["route_variable_1, route_variable_2, etc..."]}}}
+#structure = {'route group' => {'specific route' => {:methods => ["GET", {"POST" => {:data => {'data header' => 'data description'}}}, etc...], :variables => ["route_variable_1, route_variable_2, etc..."]}}}
 v1_endpoints = {
     '/' => {
         '/' => {:methods => ["GET"]}},
