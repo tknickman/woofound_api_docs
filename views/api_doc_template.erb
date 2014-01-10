@@ -1,151 +1,212 @@
 <div class="col-lg-12">
 
 
-  <div class="col-lg-12">
-    <h1>API Methods
-      <small>Version <%= @version_num %> </small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="/"><i class="fa fa-book"></i> Woofound Developer Resources</a></li>
-      <li class="active"><i class="fa fa-code"></i> API Methods</li>
-      <li class="active"><i class="fa fa-code"></i> Version <%= @version_num %></li>
-    </ol>
-  </div>
+<div class="col-lg-12">
+  <h1>API Methods
+    <small>Version <%= @version_num %> </small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-book"></i> Woofound Developer Resources</a></li>
+    <li class="active"><i class="fa fa-code"></i> API Methods</li>
+    <li class="active"><i class="fa fa-code"></i> Version <%= @version_num %></li>
+  </ol>
+</div>
 
 
 
 
 
-  <% accordion_num = 0 %>
-  <div class="accordion" id="accordion">
+<% accordion_num = 0 %>
+<div class="accordion" id="accordion">
 
 
-    <!--Loop over the routes hash-->
-    <% @endpoint_data.each do |route_group, specific_route| %>
+  <!--Loop over the routes hash-->
+  <% @endpoint_data.each do |route_group, specific_route| %>
 
-        <!--Get the route group name-->
-        <% route_group_name = route_group %>
+      <!--Get the route group name-->
+      <% route_group_name = route_group %>
 
-        <!--Output the name-->
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="<%= '#accordion' + accordion_num.to_s %>" href="<%= '#collapse' + accordion_num.to_s %>">
-            <h2 id="nav-tabs">
-              <titlecode><%= route_group_name %></titlecode>
-            </h2>
-          </a>
-        </div>
-
-
-        <div id="<%= 'collapse' + accordion_num.to_s %>" class="accordion-body collapse">
-          <div class="col-lg-12">
-            <div class="tab_container">
-              <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                <li class="active">
-                  <a href="<%= '#operations_tab_' + accordion_num.to_s %>" data-toggle="tab">Operations</a></li>
-                <li><a href="<%= '#examples_tab_' + accordion_num.to_s %>" data-toggle="tab">Examples</a></li>
-              </ul>
-
-              <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade active in" id="<%= 'operations_tab_' + accordion_num.to_s %>">
+      <!--Output the name-->
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="<%= '#accordion' + accordion_num.to_s %>" href="<%= '#collapse' + accordion_num.to_s %>">
+          <h2 id="nav-tabs">
+            <titlecode><%= route_group_name %></titlecode>
+          </h2>
+        </a>
+      </div>
 
 
-                  <% specific_route.each do |specific_route, specific_route_details| %>
+      <div id="<%= 'collapse' + accordion_num.to_s %>" class="accordion-body collapse">
+        <div class="col-lg-12">
+          <div class="tab_container">
+            <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+              <li class="active">
+                <a href="<%= '#operations_tab_' + accordion_num.to_s %>" data-toggle="tab">Operations</a></li>
+              <li><a href="<%= '#examples_tab_' + accordion_num.to_s %>" data-toggle="tab">Examples</a></li>
+            </ul>
 
-                      <% specific_route_name = specific_route %>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade active in" id="<%= 'operations_tab_' + accordion_num.to_s %>">
 
-                      <!--Get out the variables for the route-->
-                      <% if specific_route_details.has_key?(:variables) %>
-                          <% variables = specific_route_details[:variables] %>
-                      <% end %>
 
-                      <!--Get our the methods for the route-->
-                      <% if specific_route_details.has_key?(:methods) %>
-                          <% methods = specific_route_details[:methods] %>
-                      <% end %>
+                <% specific_route.each do |specific_route, specific_route_details| %>
 
-                      <% methods.each do |method| %>
-                          <% if method.strip == "GET" %>
-                              <h4><span class="label label-success"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                          <% end %>
+                    <% specific_route_name = specific_route %>
 
-                          <% if method.strip == "POST" %>
-                              <h4><span class="label label-primary"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                          <% end %>
+                    <!--Get out the variables for the route-->
+                    <% if specific_route_details.has_key?(:variables) %>
+                        <% variables = specific_route_details[:variables] %>
+                    <% end %>
 
-                          <% if method.strip == "PUT" %>
-                              <h4><span class="label label-warning"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                          <% end %>
+                    <!--Get our the methods for the route-->
+                    <% if specific_route_details.has_key?(:methods) %>
+                        <% methods = specific_route_details[:methods] %>
+                    <% end %>
 
-                          <% if method.strip == "DELETE" %>
-                              <h4><span class="label label-danger"><%= method.strip %></span>
-                                https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
-                          <% end %>
+                    <!--iterate through each method attached -->
+                    <% methods.each do |method| %>
+                        <!--check if it is a hash, if so => then the method has details with it-->
+                        <% if method.class == Hash %>
+                            <% method.each do |method_type, method_type_data| %>
+                                <% method_with_data = method_type %>
+                                <% data = method_type_data[:data] %>
 
-                      <% end %>
+                                <% if method_with_data.strip == "GET" %>
+                                    <h4><span class="label label-success"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                <% end %>
 
-                  <% end %>
+                                <% if method_with_data.strip == "POST" %>
+                                    <h4><span class="label label-primary"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                <% end %>
 
-                </div>
-                <div class="tab-pane fade" id="<%= 'examples_tab_' + accordion_num.to_s %>">
+                                <% if method_with_data.strip == "PUT" %>
+                                    <h4><span class="label label-warning"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code>
+                                    </h4></br>
+                                <% end %>
 
-                  <% specific_route.each do |specific_route, specific_route_details| %>
+                                <% if method_with_data.strip == "DELETE" %>
+                                    <h4><span class="label label-danger"><%= method_with_data.strip %></span>
+                                      https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
+                                <% end %>
 
-                      <% specific_route_name = specific_route %>
+                                <div class="table-responsive">
+                                  <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                      <th>Data - JSON</th>
+                                      <th>Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% data.each do |data_name, data_description| %>
+                                        <tr>
+                                          <td><%= data_name %></td>
+                                          <td><%= data_description %></td>
+                                        </tr>
+                                    <% end %>
+                                    </tbody>
+                                  </table>
+                                </div>
 
-                      <!--Get out the variables for the route-->
-                      <% if specific_route_details.has_key?(:variables) %>
-                          <% variables = specific_route_details[:variables] %>
-                      <% end %>
+                            <% end %>
+                        <% else %>
+                            <% if method.strip == "GET" %>
+                                <h4><span class="label label-success"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                            <% end %>
 
-                      <!--Get our the methods for the route-->
-                      <% if specific_route_details.has_key?(:methods) %>
-                          <% methods = specific_route_details[:methods] %>
-                      <% end %>
+                            <% if method.strip == "POST" %>
+                                <h4><span class="label label-primary"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                            <% end %>
 
-                      <% methods.each do |method| %>
-                          <% if method.strip == "GET" %>
-                              <h4><span class="label label-success"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                              <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
-                          <% end %>
+                            <% if method.strip == "PUT" %>
+                                <h4><span class="label label-warning"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                            <% end %>
 
-                          <% if method.strip == "POST" %>
-                              <h4><span class="label label-primary"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                              <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
-                          <% end %>
+                            <% if method.strip == "DELETE" %>
+                                <h4><span class="label label-danger"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
+                            <% end %>
+                        <% end %>
 
-                          <% if method.strip == "PUT" %>
-                              <h4><span class="label label-warning"><%= method.strip %></span> https://core.woofound.com<code><%= specific_route_name %></code>
-                              </h4></br>
-                              <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
-                          <% end %>
+                    <% end %>
 
-                          <% if method.strip == "DELETE" %>
-                              <h4><span class="label label-danger"><%= method.strip %></span>
-                                https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
-                              <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
-                          <% end %>
-
-                      <% end %>
-
-                  <% end %>
-
-                </div>
+                <% end %>
 
               </div>
+              <div class="tab-pane fade" id="<%= 'examples_tab_' + accordion_num.to_s %>">
+
+                <% specific_route.each do |specific_route, specific_route_details| %>
+
+                    <% specific_route_name = specific_route %>
+
+                    <!--Get out the variables for the route-->
+                    <% if specific_route_details.has_key?(:variables) %>
+                        <% variables = specific_route_details[:variables] %>
+                    <% end %>
+
+                    <!--Get our the methods for the route-->
+                    <% if specific_route_details.has_key?(:methods) %>
+                        <% methods = specific_route_details[:methods] %>
+                    <% end %>
+
+                    <% methods.each do |method| %>
+                        <% if method.class == Hash %>
+                            <% details = method[:data] %>
+                        <% else %>
+                            <% if method.strip == "GET" %>
+                                <h4><span class="label label-success"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                                <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
+                            <% end %>
+
+                            <% if method.strip == "POST" %>
+                                <h4><span class="label label-primary"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                                <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
+                            <% end %>
+
+                            <% if method.strip == "PUT" %>
+                                <h4><span class="label label-warning"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code>
+                                </h4></br>
+                                <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
+                            <% end %>
+
+                            <% if method.strip == "DELETE" %>
+                                <h4><span class="label label-danger"><%= method.strip %></span>
+                                  https://core.woofound.com<code><%= specific_route_name %></code></h4></br>
+                                <pre>curl -X <%= method.strip %> -H "Woofound-App-Secret: APP SECRET"  --user "name@example.com:password" https://core.woofound.com<%= specific_route_name %></pre>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+
+                <% end %>
+
+              </div>
+
             </div>
           </div>
         </div>
+      </div>
 
 
 
-        <% accordion_num += 1 %>
-    <% end %>
+      <% accordion_num += 1 %>
+  <% end %>
 
 
-  </div>
+</div>
 </div>

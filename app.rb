@@ -15,8 +15,24 @@ v1_endpoints = {
     '/' => {
         '/' => {:methods => ["GET"]}},
     '/users' => {
-        '/users' => {:methods => ["POST"]},
-        '/users/me' => {:methods => ["GET", "PUT"]}},
+        '/users' => {:methods => [{"POST" => {
+      :data => {
+        'username' => 'username of new user (required)',
+        'email' => 'email address of new user (required)',
+        'password' => 'password of new user (required)',
+        'password_confirmation' => 'password of new user (required)',
+        'first_name' => 'fist name of new user (required)',
+        'last_name' => 'last name of new user (required)',
+        'birthday' => 'birth date of new user (required)'}}}]},
+        '/users/me' => {:methods => ["GET", {"PUT" => {
+      :data => {
+        'username' => 'username of new user (required)',
+        'email' => 'email address of new user (required)',
+        'password' => 'password of new user (required)',
+        'password_confirmation' => 'password of new user (required)',
+        'first_name' => 'fist name of new user (required)',
+        'last_name' => 'last name of new user (required)',
+        'birthday' => 'birth date of new user (required)'}}}]}},
     '/sliders' => {
         '/sliders' => {:methods => ["GET"]},
         '/sliders/{id}' => {:methods => ["GET"], :variables => ["id"]},
